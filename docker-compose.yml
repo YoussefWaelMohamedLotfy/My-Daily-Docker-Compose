@@ -16,6 +16,15 @@ services:
     ports:
       - 1433:1433
 
+  mongo:
+    container_name: MongoDb
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+
   rabbitmq:
     container_name: RabbitMQ
     image: rabbitmq:management
@@ -25,3 +34,20 @@ services:
       - 5672:5672
     labels:
       NAME: "some-rabbit"
+
+  portainer:
+    container_name: Portainer
+    image: portainer/portainer-ce
+    ports:
+      - 9443:9443
+      - 8080:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  mongo_data:
+  portainer_data:
+  #postgres_data:
+  #pgadmin_data:
+  #elasticsearch-data:
