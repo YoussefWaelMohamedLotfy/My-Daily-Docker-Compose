@@ -45,9 +45,62 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
+  seq:
+    container_name: Seq
+    image: datalust/seq:latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 8800:80
+      - 5341:5341
+    volumes:
+      - /path/to/seq/data:/data
+
+  elasticsearch:
+    container_name: ElasticSearch-v7
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.5
+    environment:
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data 
+
+  kibana:
+    container_name: Kibana-v7
+    image: docker.elastic.co/kibana/kibana:7.17.5
+    environment:        
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+
+  apmserver:
+    container_name: APM-Server-v7
+    image: docker.elastic.co/apm/apm-server:7.17.5
+    cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
+    cap_drop: ["ALL"]
+    ports:
+      - 8200:8200
+    depends_on:
+      - elasticsearch
+    command: >
+      apm-server -e
+        -E apm-server.rum.enabled=true
+        -E setup.kibana.host=kibana:5601
+        -E setup.template.settings.index.number_of_replicas=0
+        -E apm-server.kibana.enabled=true
+        -E apm-server.kibana.host=kibana:5601
+        -E output.elasticsearch.hosts=["elasticsearch:9200"]
+
 volumes:
   mongo_data:
   portainer_data:
   #postgres_data:
   #pgadmin_data:
-  #elasticsearch-data:
+  elasticsearch-data:

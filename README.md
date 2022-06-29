@@ -27,11 +27,15 @@ docker-compose down
 ### Images Included
 
 |Image Name|Tag|Is Latest|
-|---|---|---|
+|---|:---:|:---:|
 |redis|latest|Yes|
 |mcr.microsoft.com/mssql/server|2019-latest|Yes|
 |mongo|latest|Yes|
 |rabbitmq|management|Yes|
 |portainer/portainer-ce|latest|Yes|
+|datalust/seq|latest|Yes|
+|docker.elastic.co/elasticsearch/elasticsearch|7.17.5|No|
+|docker.elastic.co/kibana/kibana|7.17.5|No|
+|docker.elastic.co/apm/apm-server|7.17.5|No|
 
 ### Notes on images
