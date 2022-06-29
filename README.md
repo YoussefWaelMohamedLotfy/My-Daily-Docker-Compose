@@ -31,6 +31,8 @@ docker-compose down
 |redis|latest|Yes|
 |mcr.microsoft.com/mssql/server|2019-latest|Yes|
 |mysql|latest|Yes|
+|postgres|latest|Yes|
+|pgadmin4|latest|Yes|
 |mongo|latest|Yes|
 |rabbitmq|management|Yes|
 |portainer/portainer-ce|latest|Yes|
