@@ -16,6 +16,15 @@ services:
     ports:
       - 1433:1433
 
+  mysql:
+    container_name: MySQL
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    ports:
+      - 3306:3306
+
   mongo:
     container_name: MongoDb
     image: mongo
@@ -40,7 +49,7 @@ services:
     image: portainer/portainer-ce
     ports:
       - 9443:9443
-      - 8080:8000
+      - 8000:8000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
