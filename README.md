@@ -34,11 +34,13 @@ docker-compose down
 |postgres|latest|Yes|
 |pgadmin4|latest|Yes|
 |mongo|latest|Yes|
+|influxdb|1.8.10|No|
 |rabbitmq|management|Yes|
 |portainer/portainer-ce|latest|Yes|
 |datalust/seq|latest|Yes|
 |docker.elastic.co/elasticsearch/elasticsearch|7.17.5|No|
 |docker.elastic.co/kibana/kibana|7.17.5|No|
 |docker.elastic.co/apm/apm-server|7.17.5|No|
+|grafana/grafana|latest|Yes|
 
 ### Notes on images

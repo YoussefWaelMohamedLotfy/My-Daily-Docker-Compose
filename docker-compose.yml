@@ -59,6 +59,18 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  influxdb:
+    image: influxdb:1.8.10
+    networks:
+      # - k6
+      - grafana
+    ports:
+      - 8086:8086
+    environment:
+      - INFLUXDB_DB=k6
+    volumes:
+      - influxdb:/var/lib/influxdb
+
   rabbitmq:
     container_name: RabbitMQ
     image: rabbitmq:management
@@ -132,9 +144,30 @@ services:
         -E apm-server.kibana.host=kibana:5601
         -E output.elasticsearch.hosts=["elasticsearch:9200"]
 
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - ./Grafana:/var/lib/grafana/dashboards
+      - ./Grafana/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./Grafana/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+
 volumes:
   mongo_data:
   portainer_data:
   postgres_data:
   pgadmin_data:
   elasticsearch-data:
+  influxdb:
+
+networks:
+  # k6:
+  grafana:
