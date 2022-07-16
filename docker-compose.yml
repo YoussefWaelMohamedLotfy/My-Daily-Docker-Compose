@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  nginx:
+    container_name: Nginx
+    build:
+      context: Nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+
   redis:
     container_name: Redis
     image: redis:latest

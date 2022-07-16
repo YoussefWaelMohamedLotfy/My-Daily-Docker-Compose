@@ -28,6 +28,7 @@ docker-compose down
 
 |Image Name|Tag|Is Latest|
 |---|:---:|:---:|
+|nginx|latest|Yes|
 |redis|latest|Yes|
 |mcr.microsoft.com/mssql/server|2019-latest|Yes|
 |mysql|latest|Yes|
