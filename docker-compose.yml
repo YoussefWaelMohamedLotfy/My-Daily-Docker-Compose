@@ -16,11 +16,8 @@ services:
     build:
       context: Nginx
       dockerfile: Dockerfile
-      args:
-        - ENABLED_MODULES=rtmp
     ports:
       - 80:8000
-      - 1935:1935 # for RTMP Module
 
   redis:
     container_name: Redis
