@@ -51,10 +51,27 @@ services:
       - POSTGRES_PASSWORD=admin1234
       - POSTGRES_DB=DefaultDb
     restart: always
+    networks:
+      - postgres
     ports:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  postgis:
+    image: postgis/postgis
+    container_name: PostGIS
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=DefaultGISDb
+    restart: always
+    networks:
+      - postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgis_data:/var/lib/postgresql/data/
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -65,6 +82,8 @@ services:
     restart: always
     ports:
       - 5050:80
+    networks:
+      - postgres
     volumes:
       - pgadmin_data:/root/.pgadmin
 
@@ -182,6 +201,7 @@ volumes:
   mongo_data:
   portainer_data:
   postgres_data:
+  postgis_data:
   pgadmin_data:
   elasticsearch-data:
   influxdb:
@@ -189,3 +209,4 @@ volumes:
 networks:
   # k6:
   grafana:
+  postgres:
