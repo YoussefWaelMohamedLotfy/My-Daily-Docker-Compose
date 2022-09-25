@@ -44,5 +44,6 @@ docker-compose down
 |docker.elastic.co/kibana/kibana|7.17.5|No|
 |docker.elastic.co/apm/apm-server|7.17.5|No|
 |grafana/grafana|latest|Yes|
+|consul|latest|Yes|
 
 ### Notes on images
