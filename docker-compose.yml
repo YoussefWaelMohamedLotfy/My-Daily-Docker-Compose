@@ -197,6 +197,16 @@ services:
       - ./Grafana/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
       - ./Grafana/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
 
+  consul:
+    image: consul
+    container_name: Consul
+    ports:
+      - 8500:8500
+      - 8600:8600/udp
+    command: >
+      agent -dev -server -ui -node=server-1 -bootstrap-expect=1
+        -client="0.0.0.0"
+
 volumes:
   mongo_data:
   portainer_data:
